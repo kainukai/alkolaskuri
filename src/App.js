@@ -2,6 +2,7 @@ import React, { useState } from "react";
 
 const App = () => {
   const [weight, setWeight] = useState("");
+  const [gender, setGender] = useState("");
   const [beer, setBeer] = useState("");
   const [time, setTime] = useState("");
   const [result, setResult] = useState("");
@@ -14,6 +15,12 @@ const App = () => {
     const burning = weight / 10;
     const gramsLeft = grams - (burning * time);
     let alcohol; alcohol = gramsLeft / (weight * 0.7);
+
+    if (gender === "male") {
+      alcohol = gramsLeft / (weight * 0.7);
+    } else if (gender === "female") {
+      alcohol = gramsLeft / (weight * 0.6);
+    }
 
     if (alcohol < 0) {
       alcohol = 0;
@@ -42,6 +49,17 @@ const App = () => {
     </label>
     </div>
     
+    <div>
+    <label>
+          Gender
+          <select value={gender} onChange={e => setGender(e.target.value)}>
+            <option value="">Select</option>
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+          </select>
+        </label>
+    </div>
+
     <h3>{result}</h3>
         <button type="submit">Calculate</button>
       </form>
